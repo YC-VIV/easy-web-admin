@@ -57,7 +57,7 @@
                         type: 'warning'
                     })
                     .then(async () => {
-                        const res = await this.$http.delete(`/rest/articles/${row._id}`)
+                        const res = await this.$http.delete(`/rest/users/${row._id}`)
                         this.$message({
                             type: 'success',
                             message: '删除成功!'
