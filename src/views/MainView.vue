@@ -27,7 +27,7 @@
                             <el-menu-item index="/template/list">模板列表</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="4">
+                    <el-submenu index="4" v-if="role==='superAdmin'">
                         <template slot="title"><i class="el-icon-user"></i>账号管理</template>
                         <el-menu-item-group>
                             <template slot="title">账号</template>
@@ -40,7 +40,7 @@
 
             <el-container>
                 <el-header style="text-align: right; font-size: 12px">
-                    <span>超级管理员</span>
+                    <span>{{name}}</span>
                     <el-button class="exist-btn" type="primary" size="small" @click="exist">登出</el-button>
                 </el-header>
 
@@ -58,12 +58,13 @@
         name : 'MainView',
         data() {
             return {
-                name: ''
+                name: '',
+                role: ''
             }
         },
         methods: {
             exist() {
-                this.$confirm(`确定要登出账号"超级管理员"吗?`, '警告', {
+                this.$confirm(`确定要登出账号"${this.name}"吗?`, '警告', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -73,10 +74,14 @@
                     this.$router.push('/login');
                 })
             },
-            getName() {
-                
+            getRole() {
+                this.role = localStorage.role;
+                this.name = localStorage.name; 
             }
-        }
+        },
+        created() {
+            this.getRole();
+        },
     };
 </script>
 

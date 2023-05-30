@@ -45,12 +45,18 @@ export default {
     methods: {
         async login() {
             const res = await this.$http.post('/login',this.userform)
+            console.log(res.data)
             // 保存token到本地储存
             localStorage.token = res.data.token
-            this.$router.push('/')
+            localStorage.role = res.data.role
+            localStorage.name = res.data.uname
             this.$message.success('登录成功！')
             setTimeout(()=>{
-                this.$message.success('欢迎你，超级管理员！')
+                // if( localStorage.role === 'superAdmin' ) {
+                    // this.$message.success('欢迎你，超级管理员！')
+                // } else {
+                    this.$message.success('欢迎使用！')
+                // }
             },1000)
             this.$router.push('/about')
         },
